@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="Build Projector"
+	Version="8,00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="BuildProjector"
+			DisplayName="Build Projector"
+			CommandLine="&quot;$(SolutionDir)solver\projector.py&quot; [AllOptions] [AdditionalOptions] [Inputs]"
+			Outputs=".PHONY"
+			FileExtensions="*.conf-vcproj"
+			ExecutionDescription="Projecting..."
+			ShowOnlyRuleProperties="false"
+			>
+			<Properties>
+				<BooleanProperty
+					Name="Force"
+					DisplayName="Force rebuild"
+					Description="Forces the update of the files     (--force)"
+					Switch="--force"
+				/>
+				<BooleanProperty
+					Name="Skip"
+					DisplayName="Skip if not changed"
+					Description="Skips overwriting the output file, if the content would not change     (--skip)"
+					Switch="--skip"
+					DefaultValue="true"
+				/>
+				<StringProperty
+					Name="Definitions"
+					DisplayName="Preprocessor Definitions"
+					Description="Specifies one or more preprocessor definitions     (--def)"
+					Switch="--def &quot;[value]&quot;"
+					Delimited="true"
+					Inheritable="true"
+				/>
+				<StringProperty
+					Name="VSVersion"
+					DisplayName="Visual Studio Version"
+					Description="Specifies one or more VS versions. Allowed values: 8,9,10     (--vs)"
+					Switch="--vs &quot;[value]&quot;"
+					Delimited="true"
+					Delimiters=","
+					Inheritable="true"
+				/>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>

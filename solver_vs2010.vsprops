@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Config for VS2010"
+	>
+	<Tool
+		Name="BuildSolver"
+		VSVersion="10"
+	/>
+	<Tool
+		Name="BuildProjector"
+		VSVersion="10"
+	/>
+</VisualStudioPropertySheet>
