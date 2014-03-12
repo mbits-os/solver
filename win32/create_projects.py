@@ -1,5 +1,5 @@
 import sys
-sys.path.append("../solver")
+sys.path.append("..\solver")
 from os import path
 from IniReader import *
 from xml.dom import minidom
@@ -14,6 +14,7 @@ def print_filter(out, files, name, root, keys, base = ""):
         if "assemble" in files.sec.items[k].value.split(";"): n = "CustomBuild"
         p = files.sec.items[k].name
         f = "\\".join(path.split(p)[0].split("/"))
+        while f[:3] == "..\\": f = f[3:]
         f = "%s%s" % (base, f)
         p = "%s%s" % (root, p)
         p = "\\".join(p.split("/"))
@@ -110,10 +111,10 @@ def print_filters(files, outname, root):
         #elif (f in files.cfiles) or (f in files.cppfiles): base = "Source Files\\"
         #else: base = "Resource Files\\"
         p = path.split(files.sec.items[f].name)[0]
+        while p[:3] == "../": p = p[3:]
         while p != "":
             dirs["%s%s" % (base, "\\".join(p.split("/")))] = 1
             p = path.split(p)[0]
-
     print >>out, """<?xml version=\"1.0\" encoding=\"utf-8\"?>
     <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
       <ItemGroup>"""
@@ -145,7 +146,7 @@ def print_project(files, outname, root, bintype, basename, guid):
     if files.file_fresh(outname): return
     print outname
     out = open(outname, "w")
-    bbasename = """..\..\%s\win32\%s""" % (basename, basename)
+    bbasename = """%s%s\win32\%s""" % (basename, basename, "\\".join(root.split("/")))
     print >>out, """<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
@@ -244,7 +245,7 @@ def create_project(root, base, bintype, guid):
         files.cppfiles.append(_p.lower())
     for k in tmp: files.datafiles.remove(k)
 
-    print_filters(files, "%s.vcxproj.filters" % base, root)
-    print_project(files, "%s.vcxproj" % base, root, bintype, base, guid)
+    print_filters(files, "%s.vcxproj.filters" % base, "%s%s/" % (root, base))
+    print_project(files, "%s.vcxproj" % base, "%s%s/" % (root, base), bintype, base, guid)
 
 create_project(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
