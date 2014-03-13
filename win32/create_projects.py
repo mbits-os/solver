@@ -146,7 +146,7 @@ def print_project(files, outname, root, bintype, basename, guid):
     if files.file_fresh(outname): return
     print outname
     out = open(outname, "w")
-    bbasename = """%s%s\win32\%s""" % (basename, basename, "\\".join(root.split("/")))
+    bbasename = """%swin32\%s""" % ("\\".join(root.split("/")), basename)
     print >>out, """<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
